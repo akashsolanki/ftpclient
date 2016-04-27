@@ -18,31 +18,27 @@
     <link href="${bootstrapUrl}" rel="stylesheet"></link>
     <c:url var="bootstrapResponsiveUrl" value="/resources/css/bootstrap-responsive.css"/>
     <link href="${bootstrapResponsiveUrl}" rel="stylesheet"></link>
-	  <script src="/resources/js/shared/angular.min.js"></script>
-     <script src="/resources/js/app.js"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
 
-  <body >
+  <body>
     <div class="container">
       <h1>This is secured!</h1>
       <p>
         Hello <b><c:out value="${pageContext.request.remoteUser}"/></b>---------------------
-            </p>Greeting : ${greeting}
+            </p>Greeting : ${greeting} and FreeSpace: ${freespace} 
       <c:url var="logoutUrl" value="/logout"/>
       
 	<form class="form-inline" action="${logoutUrl}" method="post">
           <input type="submit" value="Log out" />
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       </form>
-      <div>
       <sec:authorize access="hasRole('ROLE_SUPER')">
-			Super Content non Booott
+			Super Content
 	 </sec:authorize>
-	 </div>
 	 <sec:authorize access="hasRole('ROLE_ADMIN')">
 			Admin Content
 	 </sec:authorize>

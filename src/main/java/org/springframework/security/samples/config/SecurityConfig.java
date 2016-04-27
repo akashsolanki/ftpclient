@@ -29,27 +29,31 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.samples.config.test.UserDetails;
 import org.springframework.security.samples.controller.CustomADAuthenticator;
+import org.springframework.security.samples.data.UserRoleRepository;
 import org.springframework.security.samples.service.CustomUserDetailsService;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Value("${ldap.domain}")
+	/*@Value("${ldap.domain}")
     private String DOMAIN;
 
     @Value("${ldap.url}")
-    private String URL;
+    private String URL;*/
     
     @Autowired
     UserDetailsService userDetailsService;
+    
+    @Autowired
+	private UserRoleRepository userRoleRepository;
     
     	@Bean
 	    public CustomADAuthenticator activeDirectoryLdapAuthenticationProvider() {
     	CustomADAuthenticator provider = new CustomADAuthenticator("ggktech.local", "ldap://172.16.0.18:389");
 	        provider.setConvertSubErrorCodesToExceptions(true);
 	        provider.setUseAuthenticationRequestCredentials(true);
-	        provider.setUserDetailsContextMapper(new UserDetails());
+	        provider.setUserDetailsContextMapper(new UserDetails(userRoleRepository));
 	        return provider;
 	    }
     	

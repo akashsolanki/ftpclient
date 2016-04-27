@@ -50,8 +50,9 @@ public class DataConfiguration {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		try
 		{
-		populator.addScript(new ClassPathResource("data.sql"));
+		//populator.addScript(new ClassPathResource("data.sql"));
 		populator.populate(dataSource.getConnection());
+		populator.setContinueOnError(true);
 		}
 		catch(Exception e)
 		{
