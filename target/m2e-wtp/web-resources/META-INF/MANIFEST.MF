@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: ggksna Maven Webapp
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com
+Build-Jdk: 1.6.0_25
+Built-By: akash.solanki
+Created-By: Maven Integration for Eclipse
+Main-Class: org.springframework.security.samples.Application
+
