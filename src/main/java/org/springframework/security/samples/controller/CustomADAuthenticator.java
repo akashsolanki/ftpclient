@@ -211,7 +211,7 @@ public final class CustomADAuthenticator extends
 				throw badCredentials(e);
 			}
 			else {
-				throw LdapUtils.convertLdapException(e);
+				throw badCredentials(e);
 			}
 		}
 	}

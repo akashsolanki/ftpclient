@@ -16,12 +16,12 @@
 package org.springframework.security.samples.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.authentication.event.LoggerListener;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -30,11 +30,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.samples.config.test.UserDetails;
 import org.springframework.security.samples.controller.CustomADAuthenticator;
 import org.springframework.security.samples.data.UserRoleRepository;
-import org.springframework.security.samples.service.CustomUserDetailsService;
 
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/*@Value("${ldap.domain}")
     private String DOMAIN;
@@ -84,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        auth.authenticationProvider(authProvider());
 	        auth.eraseCredentials(false);
 	    }
+	    
 	    
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {

@@ -10,3 +10,4 @@ insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',1,'s
 insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',2,'super');
 insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',3,'super');
 insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',3,'user');
+INSERT INTO USERROLE(ROLEID, USERNAME ) VALUES ( 1 , 'pegasus')

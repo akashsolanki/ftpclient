@@ -10,6 +10,7 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.ldap.LdapContext;
 
 import org.springframework.security.samples.config.test.ActiveDirectory.User;
+import org.springframework.security.samples.vo.UserVO;
 
 public class ADContext {
 
@@ -22,14 +23,13 @@ public class ADContext {
 	
 	    	try{
 	    		
-	    		LdapContext conn = ActiveDirectory.getConnection("pegasus","Welcome@1234",null,"GGK-WRL-ADC-001");
+	    		LdapContext conn = ActiveDirectory.getConnection("pegasus","Welcome@1234","ggktech.local","ldap://172.16.0.18:389");
 	    	   // ActiveDirectory.getUser("bob", conn).changePassword("password", "NewPassword!", true, conn);
-	    	    User[] users = ActiveDirectory.getUsers(conn);
+	    	    List<UserVO> users = ActiveDirectory.getUsers(conn);
 	    	    
-	    	    System.out.println(users.length);
-	    	    for(User user:users)
+	    	    for(UserVO user:users)
 	    	    {
-	    	    	System.out.println(user.getUserPrincipal());
+	    	    	System.out.println(user.getUsername());
 	    	    }
 	    	    conn.close();
 	    	    System.out.println("Success!");
