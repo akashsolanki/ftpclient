@@ -14,7 +14,7 @@ public class TestController {
 	@RequestMapping
     public String sayHelloAgain(ModelMap model) {
 		model.addAttribute("greeting", "Hello World Again, from Spring 4 MVC");
-        return "admin";
+        return "user";
     }
 	@RequestMapping(value="/check",method=RequestMethod.GET)
     public String check(Authentication authentication) {
