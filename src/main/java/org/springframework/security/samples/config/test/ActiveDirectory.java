@@ -1,24 +1,33 @@
 package org.springframework.security.samples.config.test;
 
+import static javax.naming.directory.SearchControls.SUBTREE_SCOPE;
+
 import java.util.Hashtable;
+import java.util.List;
+
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.DirContext;
-import javax.naming.directory.SearchControls;
-import javax.naming.directory.SearchResult;
-import static javax.naming.directory.SearchControls.SUBTREE_SCOPE;
-import javax.naming.ldap.LdapContext;
-import javax.naming.ldap.InitialLdapContext;
- 
 //Imports for changing password
 import javax.naming.directory.ModificationItem;
-import javax.naming.directory.BasicAttribute;
-import javax.naming.ldap.StartTlsResponse;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
+import javax.naming.ldap.InitialLdapContext;
+import javax.naming.ldap.LdapContext;
 import javax.naming.ldap.StartTlsRequest;
-import javax.net.ssl.*;
+import javax.naming.ldap.StartTlsResponse;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import org.springframework.security.samples.vo.UserVO;
  
 //******************************************************************************
 //**  ActiveDirectory
@@ -31,9 +40,7 @@ import javax.net.ssl.*;
 public class ActiveDirectory {
  
     private static String[] userAttributes = {
-        "distinguishedName","cn","name","uid",
-        "sn","givenname","memberOf","samaccountname",
-        "userPrincipalName"
+        "distinguishedName","cn","name","givenname","samaccountname","userPrincipalName"
     };
  
     private ActiveDirectory(){}
@@ -92,7 +99,7 @@ public class ActiveDirectory {
         if (password!=null) props.put(Context.SECURITY_CREDENTIALS, password);
  
  
-        String ldapURL = "ldap://" + ((serverName==null)? domainName : serverName + "." + domainName) + '/';
+        String ldapURL = ((serverName==null)? domainName : serverName ) + '/';
         props.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         props.put(Context.PROVIDER_URL, ldapURL);
         try{
@@ -159,28 +166,30 @@ public class ActiveDirectory {
   //*************************************************************************/
   /** Returns a list of users in the domain.
    */
-    public static User[] getUsers(LdapContext context) throws NamingException {
+    public static List<UserVO> getUsers(LdapContext context) throws NamingException {
  
-        java.util.ArrayList<User> users = new java.util.ArrayList<User>();
+        java.util.ArrayList<UserVO> users = new java.util.ArrayList<UserVO>();
+        
         String authenticatedUser = (String) context.getEnvironment().get(Context.SECURITY_PRINCIPAL);
         if (authenticatedUser.contains("@")){
             String domainName = authenticatedUser.substring(authenticatedUser.indexOf("@")+1);
             SearchControls controls = new SearchControls();
             controls.setSearchScope(SUBTREE_SCOPE);
             controls.setReturningAttributes(userAttributes);
-            NamingEnumeration answer = context.search( toDC(domainName), "(objectClass=user)", controls);
+            NamingEnumeration answer = context.search( toDC(domainName), "(&(objectCategory=person)(objectClass=user)(!userAccountControl:1.2.840.113556.1.4.803:=2))", controls);
             try{
                 while(answer.hasMore()) {
                     Attributes attr = ((SearchResult) answer.next()).getAttributes();
                     Attribute user = attr.get("userPrincipalName");
                     if (user!=null){
-                        users.add(new User(attr));
+                    	
+                        users.add(new UserVO(attr));
                     }
                 }
             }
             catch(Exception e){}
         }
-        return users.toArray(new User[users.size()]);
+        return users;
     }
  
  
@@ -208,7 +217,6 @@ public class ActiveDirectory {
             userPrincipal = (String) attr.get("userPrincipalName").get();
             commonName = (String) attr.get("cn").get();
             distinguishedName = (String) attr.get("distinguishedName").get();
- 
         }
  
         public String getUserPrincipal(){
