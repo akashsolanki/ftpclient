@@ -1,6 +1,6 @@
-insert into User(created,username,password) values ('2013-10-04 10:00:00','admin','admin');
-insert into User(created,username,password) values ('2013-10-04 10:00:00','super','super');
-insert into User(created,username,password) values ('2013-10-04 10:00:00','user','user');
+insert into User(created,username,password) values ('2013-10-04 10:00:00','admin','$2a$11$QGpodUb4P7y/4lHasGZCteRyS.5H9r4QE9d6nOVxgqufxb8.ZhKiu');
+insert into User(created,username,password) values ('2013-10-04 10:00:00','super','$2a$11$2RXbxd4hrhelG5zP.nZMOumSFanclW2AdjEr2AHVGfUhIAwk0wThe');
+insert into User(created,username,password) values ('2013-10-04 10:00:00','user','$2a$11$lDV1NoRLj//y20QM.rItu.VmpAKfS1TF2ySX9N1XdlGaw6wBLRh.2');
 insert into Role(created,id,role) values ('2013-10-04 10:00:00',1,'ROLE_SUPER');
 insert into Role(created,id,role) values ('2013-10-04 10:00:00',2,'ROLE_ADMIN');
 insert into Role(created,id,role) values ('2013-10-04 10:00:00',3,'ROLE_USER');

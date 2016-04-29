@@ -1,15 +1,12 @@
 package org.springframework.security.samples.config.test;
 
-import java.util.Hashtable;
 import java.util.List;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
 import javax.naming.ldap.LdapContext;
 
-import org.springframework.security.samples.config.test.ActiveDirectory.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.samples.vo.UserVO;
 
 public class ADContext {
@@ -19,6 +16,8 @@ public class ADContext {
 	  {
 	    try
 	    {
+	    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+	    	System.out.println(encoder.encode("user"));
 	      System.out.println("started to connect");
 	
 	    	try{
