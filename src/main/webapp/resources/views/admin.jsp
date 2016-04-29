@@ -59,8 +59,7 @@
     </div>
     <script src="/resources/js/shared/menu.js">
     </script>
-    <script src="/resource/js/shared/angular.min.js">
-    </script>
+    
   </body>
 </html>
 </jsp:root>

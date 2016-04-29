@@ -34,14 +34,14 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 				.addResourceLocations("classpath:/resources/").setCachePeriod(31556926);
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
-	@Bean
+	/*@Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setPrefix("/resources/views/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
-    }
+    }*/
 	@Bean
 	public DomainClassConverter<?> domainClassConverter() {
 		return new DomainClassConverter<FormattingConversionService>(mvcConversionService);
