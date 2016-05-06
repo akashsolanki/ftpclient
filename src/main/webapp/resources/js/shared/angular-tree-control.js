@@ -135,11 +135,14 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         else if ($scope.options.multiSelection && $scope.selectedNodes) {
                             for (var i = 0; (i < $scope.selectedNodes.length); i++) {
                                 if ($scope.options.equality(node, $scope.selectedNodes[i])) {
-                                	console.log(node.id+"&&&&");
                                 	if($scope.selectedNodes[i].read || $scope.selectedNodes[i].write)
                                 	{
-                                		node.read= $scope.selectedNodes[i].read;
-                                		node.write=$scope.selectedNodes[i].write;
+                                		if(node.check==null || node.check)
+                                		{
+                                			node.read= $scope.selectedNodes[i].read;
+                                			node.write=$scope.selectedNodes[i].write;
+                                			node.check=false;
+                                		}
                                 		return true;
                                 	}
                                 	else
@@ -154,7 +157,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     }
 
                     $scope.headClass = function(node) {
-                        var liSelectionClass = classIfDefined($scope.options.injectClasses.liSelected, false);
+                    	var liSelectionClass = classIfDefined($scope.options.injectClasses.liSelected, false);
                         var injectSelectionClass = "";
                         if (liSelectionClass && isSelectedNode(node))
                             injectSelectionClass = " " + liSelectionClass;
@@ -205,7 +208,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     };
 
                     $scope.selectNodeLabel = function( selectedNode){
-                        var transcludedScope = this;
+                    	var transcludedScope = this;
                         if(!$scope.options.isLeaf(selectedNode) && (!$scope.options.dirSelectable || !$scope.options.isSelectable(selectedNode))) {
                             // Branch node is not selectable, expand
                             this.selectNodeHead();
@@ -225,14 +228,12 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                                     }
                                 }
                                 if (pos === -1) {
-                                	console.log(selectedNode.id+"-------------");
                                 	if(selectedNode.read || selectedNode.write)
                                 	{
                                 		$scope.selectedNodes.push(selectedNode);
                                 		selected = true;
                                 	}
                                 } else {
-                                	console.log(selectedNode.id+"-------------");
                                 	if(!(selectedNode.read || selectedNode.write))
                                 	{
                                 		$scope.selectedNodes.splice(pos, 1);
@@ -264,7 +265,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                     };
 
                     $scope.selectedClass = function() {
-                        var isThisNodeSelected = isSelectedNode(this.node);
+                    	var isThisNodeSelected = isSelectedNode(this.node);
                         var labelSelectionClass = classIfDefined($scope.options.injectClasses.labelSelected, false);
                         var injectSelectionClass = "";
                         if (labelSelectionClass && isThisNodeSelected)
@@ -424,7 +425,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         var newSelectedNodes = [];
                         for (var i = 0; (i < scope.selectedNodes.length); i++) {
                             if (scope.options.equality(scope.node, scope.selectedNodes[i])) {
-                                newSelectedNodes.push(scope.node);
+                            	newSelectedNodes.push(scope.node);
                             }
                         }
                         scope.selectedNodes = newSelectedNodes;

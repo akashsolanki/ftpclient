@@ -28,10 +28,10 @@
              <span ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
              <span ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
          </span>
-   {{node.name}}  Read<input type="checkbox" ng-model="node.read"/>   Write<input type="checkbox" ng-model="node.write"/>
+   {{node.name}}  Read<input type="checkbox" ng-model="node.read"/>   Write<input type="checkbox" ng-model="node.write" />
 </treecontrol>
     </td>
-        </tr><tr><td>{{selectedFolder}}</td></tr>
+        </tr>
         </tbody>
     </table>
     <sec:authorize access="hasAnyRole('ROLE_SUPER')">

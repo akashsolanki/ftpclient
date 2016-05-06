@@ -4,6 +4,7 @@
 		$scope.selectedFolder = [{"id":3,"name":"folder2","type":true,"path":"/folder2","parentId":1,"read":true,"write":false,"children":[]}];
 		$scope.users = [];
 		$scope.currentUser="";
+		
 		$scope.getUsers = function(pageIndex){
 			$http.get('./user/list').success(
 					function(data) {
@@ -31,7 +32,12 @@
 			   
 			};
 		$scope.onUserSelect = function(){
-			    
+			$http.get('./folder/userlist/'+$scope.currentUser).success(
+					function(data) {
+						$scope.selectedFolder = data;
+					}).error(function(data) {
+				console.log("error: " + data);
+			});
 			};
 		
 		

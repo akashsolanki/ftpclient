@@ -15,9 +15,7 @@ public class UserFolder {
 	
 	private String username;
 	
-	private String folderName;
-	
-	private String folderPath;
+	private Long folderId;
 	
 	private boolean canRead;
 	
@@ -57,20 +55,12 @@ public class UserFolder {
 		this.canWrite = canWrite;
 	}
 
-	public String getFolderName() {
-		return folderName;
+	public Long getFolderId() {
+		return folderId;
 	}
 
-	public void setFolderName(String folderName) {
-		this.folderName = folderName;
-	}
-
-	public String getFolderPath() {
-		return folderPath;
-	}
-
-	public void setFolderPath(String folderPath) {
-		this.folderPath = folderPath;
+	public void setFolderId(Long folderId) {
+		this.folderId = folderId;
 	}
 
 	public Calendar getCreated() {
