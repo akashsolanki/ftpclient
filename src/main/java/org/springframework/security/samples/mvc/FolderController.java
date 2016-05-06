@@ -1,34 +1,33 @@
 package org.springframework.security.samples.mvc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.samples.service.UserService;
-import org.springframework.security.samples.vo.ResponseVO;
-import org.springframework.security.samples.vo.RoleVO;
-import org.springframework.security.samples.vo.UserVO;
+import org.springframework.security.samples.service.FolderService;
+import org.springframework.security.samples.vo.FolderVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/folder")
+public class FolderController {
 	
 	@Autowired
-	private UserService userService;
+	private FolderService folderService;
 	
 	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
 	@RequestMapping(value="/list",method=RequestMethod.GET)
-    public @ResponseBody List<UserVO> getUserList() {
-		List<UserVO> userList = userService.getUserList();
-		return userList;
+    public @ResponseBody List<FolderVO> getFolderTree() {
+		FolderVO folderVO = folderService.getFolderTree();
+		List<FolderVO> tree = new ArrayList<FolderVO>();
+		tree.add(folderVO);
+		return tree;
     }
-	
+	/*
 	@Secured("ROLE_SUPER")
 	@RequestMapping(value="/create",method=RequestMethod.POST)
     public @ResponseBody List<UserVO> createUser(@RequestBody UserVO userVO) {
@@ -66,5 +65,5 @@ public class UserController {
 		ResponseVO response = new ResponseVO(); 
 		response.setIsSuccess(true);
 		return response;
-    }
+    }*/
 }

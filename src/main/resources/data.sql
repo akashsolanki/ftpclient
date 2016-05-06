@@ -10,4 +10,13 @@ insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',1,'s
 insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',2,'super');
 insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',3,'super');
 insert into UserRole(created,roleId,username) values ('2013-10-04 10:00:00',3,'user');
-INSERT INTO USERROLE(ROLEID, USERNAME ) VALUES ( 1 , 'pegasus')
+INSERT INTO USERROLE(ROLEID, USERNAME ) VALUES ( 1 , 'pegasus');
+insert into folder(id,name,isfolder,path,parentid) values(1,'root',true,'/',null);
+insert into folder(id,name,isfolder,path,parentid) values(2,'folder1',true,'/folder1',1);
+insert into folder(id,name,isfolder,path,parentid) values(3,'folder2',true,'/folder2',1);
+insert into folder(id,name,isfolder,path,parentid) values(6,'folder21',true,'/folder2/folder21',3);
+insert into folder(id,name,isfolder,path,parentid) values(7,'folder211',true,'/folder2/folder21/folder211',6);
+insert into folder(id,name,isfolder,path,parentid) values(8,'folder212',false,'/folder2/folder21/folder212',6);
+insert into folder(id,name,isfolder,path,parentid) values(4,'folder3',true,'/folder3',1);
+insert into folder(id,name,isfolder,path,parentid) values(5,'folder4',false,'/folder4',1);
+

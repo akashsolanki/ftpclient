@@ -13,13 +13,6 @@ public class TestController {
 	
 	@RequestMapping
     public String sayHelloAgain(ModelMap model) {
-		model.addAttribute("greeting", "Hello World Again, from Spring 4 MVC");
-        return "user";
-    }
-	@RequestMapping(value="/check",method=RequestMethod.GET)
-    public String check(Authentication authentication) {
-        Object p = authentication.getCredentials();
-        Object o =SecurityContextHolder.getContext().getAuthentication();
-        return "admin1";
+		return "index";
     }
 }

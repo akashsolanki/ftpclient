@@ -8,6 +8,8 @@ public RoleVO(long roleId, String roleName) {
 	this.roleId = roleId;
 	this.roleName = roleName; 
 }
+public RoleVO() {
+}
 public long getRoleId() {
 	return roleId;
 }

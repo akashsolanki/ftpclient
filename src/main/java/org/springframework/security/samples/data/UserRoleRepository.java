@@ -2,10 +2,12 @@ package org.springframework.security.samples.data;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+
 
 public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
 
@@ -16,6 +18,11 @@ public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
 	
 	@Query(value = "SELECT role FROM Role WHERE id = ?1", nativeQuery = true)
 	String roleByRoleID(Long roleid); 
+	
+	@Query("Delete FROM UserRole as userrole WHERE userrole.username = ?1")
+	@Modifying
+	@Transactional
+	void deleteByUsername(String username);
 /*
 	  // Enables the distinct flag for the query
 	  List<User> findDistinctPeopleByLastnameOrFirstname(String lastname, String firstname);

@@ -18,7 +18,10 @@ public class UserVO {
           commonName = (String) attr.get("cn").get();
           distinguishedName = (String) attr.get("distinguishedName").get();
     }
-
+	public UserVO()
+	{
+	
+	}
 	public UserVO(String username) {
 		// TODO Auto-generated constructor stub
 		this.username = username;
