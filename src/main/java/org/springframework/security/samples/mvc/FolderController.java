@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.samples.service.FolderService;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/folder")
 public class FolderController {
 	
+	@Value("${rootfolder}")
+	private String rootfolder;
+	
 	@Autowired
 	private FolderService folderService;
 	
@@ -30,6 +34,7 @@ public class FolderController {
     public @ResponseBody List<FolderVO> getFolderTree() {
 		FolderVO folderVO = folderService.getFolderTree();
 		List<FolderVO> tree = new ArrayList<FolderVO>(Arrays.asList(folderVO));
+		System.out.println("***********************"+rootfolder);
 		return tree;
     }
 	
@@ -40,6 +45,15 @@ public class FolderController {
 		return tree;
     }
 	
+	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
+	@RequestMapping(value="/create/{foldername}",method=RequestMethod.POST)
+    public@ResponseBody ResponseVO createFolder(@PathVariable String foldername,@RequestBody FolderVO folderVO) {
+		//List<FolderVO> tree = folderService.getFoldersByUser(,false);
+		System.out.println(foldername+"--------"+folderVO.getPath());
+		ResponseVO response = new ResponseVO(); 
+		response.setIsSuccess(true);
+		return response;
+    }
 	
 	@RequestMapping(value="/folderlist",method=RequestMethod.GET)
     public @ResponseBody List<FolderVO> getPermittedFolder() {

@@ -12,7 +12,8 @@
         <tbody>
 <!--         <tr><td>{{selectedFolder}}</td></tr> -->
         <tr>
-            <td>{{selectedFolder}}
+            <td><button ng-click="createFolder()" 
+     class="btn btn-small btn-danger">createFolder</button>
     </td>    <td><treecontrol class="tree-classic"
    tree-model="dataForTheTree"
    options="treeOptions"
@@ -34,9 +35,8 @@
         </tr>
         </tbody>
     </table>
-    <sec:authorize access="hasAnyRole('ROLE_SUPER')">
-    <button ng-click="addPerm()" 
-     class="btn btn-small btn-danger">Add Permissions</button>
-    </sec:authorize>
+    
+    
+    
 </body>
 </html>

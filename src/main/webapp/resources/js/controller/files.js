@@ -10,7 +10,14 @@
 				console.log("error: " + data);
 			});
 		};
-	
+		$scope.createFolder = function(){
+			$http.post('./folder/create/testfolder',$scope.selectedFolder).success(
+					function(data) {
+						$scope.dataForTheTree = angular.copy(data);
+					}).error(function(data) {
+				console.log("error: " + data);
+			});
+		};
 		var init = function() {
 			$scope.getFolderList();
 		};
