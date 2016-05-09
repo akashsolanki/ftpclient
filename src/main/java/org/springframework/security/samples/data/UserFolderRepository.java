@@ -18,4 +18,6 @@ public interface UserFolderRepository extends CrudRepository<UserFolder, Long> {
 	@Modifying
 	@Transactional
 	void deleteByUsername(String username);
+	
+	List<UserFolder> findByFolderIdAndUsernameAllIgnoreCase(long folderId, String username);
 }

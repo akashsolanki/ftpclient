@@ -12,4 +12,6 @@ public interface FolderService {
 	List<FolderVO> getFoldersByUser(String username, boolean b);
 
 	void saveUserFile(UserVO userVO);
+
+	void createFolder(String foldername, FolderVO folderVO, String name, String rootfolder);
 }

@@ -141,6 +141,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                                 		{
                                 			node.read= $scope.selectedNodes[i].read;
                                 			node.write=$scope.selectedNodes[i].write;
+                                			$scope.selectedNodes[i] = node;
                                 			node.check=false;
                                 		}
                                 		return true;
@@ -207,7 +208,7 @@ if (typeof module !== "undefined" && typeof exports !== "undefined" && module.ex
                         }
                     };
 
-                    $scope.selectNodeLabel = function( selectedNode){
+                    $scope.selectNodeLabel = function(selectedNode){
                     	var transcludedScope = this;
                         if(!$scope.options.isLeaf(selectedNode) && (!$scope.options.dirSelectable || !$scope.options.isSelectable(selectedNode))) {
                             // Branch node is not selectable, expand

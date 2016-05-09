@@ -48,8 +48,7 @@ public class FolderController {
 	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
 	@RequestMapping(value="/create/{foldername}",method=RequestMethod.POST)
     public@ResponseBody ResponseVO createFolder(@PathVariable String foldername,@RequestBody FolderVO folderVO) {
-		//List<FolderVO> tree = folderService.getFoldersByUser(,false);
-		System.out.println(foldername+"--------"+folderVO.getPath());
+		folderService.createFolder(foldername,folderVO,SecurityContextHolder.getContext().getAuthentication().getName(),rootfolder);
 		ResponseVO response = new ResponseVO(); 
 		response.setIsSuccess(true);
 		return response;

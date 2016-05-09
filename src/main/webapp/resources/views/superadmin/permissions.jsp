@@ -10,7 +10,7 @@
 <body class="container">
 <table class="table table-striped table-condensed">
         <tbody>
-<!--         <tr><td>{{selectedFolder}}</td></tr> -->
+<!-- <tr><td>{{selectedFolder}}</td></tr> -->
         <tr>
             <td><select ng-change="onUserSelect();" ng-model="currentUser" ng-options="user.username for user in users">
   </select>

@@ -1,5 +1,6 @@
 package org.springframework.security.samples.service.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,6 +108,53 @@ public class FolderServiceImpl implements FolderService {
 				}
 				return foldervos;
 	}
+
+	@Override
+	public void createFolder(String foldername, FolderVO folderVO, String username,  String rootfolder) {
+		if(checkFolderPermissions(folderVO.getId(),username))
+		{
+			File files = new File(rootfolder+"\\"+folderVO.getPath()+"\\"+foldername);
+	        if (!files.exists()) {
+	            if (files.mkdirs()) {
+	            	Folder folder = new Folder();
+	            	folder.setIsfolder(true);
+	            	folder.setName(foldername);
+	            	folder.setParentId(folderVO.getId());
+	            	folder.setPath(folderVO.getPath()+"\\"+foldername);
+	            	folderRepository.save(folder);
+	                System.out.println("Multiple directories are created!");
+	            } else {
+	                System.out.println("Failed to create multiple directories!");
+	            }
+	        }
+		}
+	}
+
+	private boolean checkFolderPermissions(long id, String username) {
+		List<UserFolder> list = userFolderRepository.findByFolderIdAndUsernameAllIgnoreCase(id, username);
+		if(list.size()>0)
+		{
+			boolean canwrite = list.get(0).isCanWrite();
+			Long pid = folderRepository.findById(id).getParentId();
+			if(canwrite)
+				return true;
+			else if(pid!=null && pid!=0)
+			{
+				return checkFolderPermissions(pid,username);
+			}
+		}
+		else
+		{
+			Long pid = folderRepository.findById(id).getParentId();
+			if(pid!=null && pid!=0)
+			{
+				return checkFolderPermissions(pid,username);
+			}
+		}
+		return false;
+	}
+
+	
 	
 	
 }

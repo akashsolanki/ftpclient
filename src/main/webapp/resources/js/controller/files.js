@@ -13,7 +13,7 @@
 		$scope.createFolder = function(){
 			$http.post('./folder/create/testfolder',$scope.selectedFolder).success(
 					function(data) {
-						$scope.dataForTheTree = angular.copy(data);
+						init();
 					}).error(function(data) {
 				console.log("error: " + data);
 			});
