@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.samples.service.FolderService;
 import org.springframework.security.samples.vo.FolderVO;
 import org.springframework.security.samples.vo.ResponseVO;
@@ -32,14 +33,24 @@ public class FolderController {
 		return tree;
     }
 	
-	@Secured("ROLE_SUPER")
+	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
 	@RequestMapping(value="/userlist/{username}",method=RequestMethod.GET)
-    public @ResponseBody List<FolderVO> createUser(@PathVariable String username) {
-		List<FolderVO> tree = folderService.getFoldersByUser(username);
+    public @ResponseBody List<FolderVO> foldersByUser(@PathVariable String username) {
+		List<FolderVO> tree = folderService.getFoldersByUser(username,false);
 		return tree;
     }
 	
-	@Secured("ROLE_SUPER")
+	
+	@RequestMapping(value="/folderlist",method=RequestMethod.GET)
+    public @ResponseBody List<FolderVO> getPermittedFolder() {
+		String username  = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<FolderVO> tree = new ArrayList();
+		if(username !=null)
+		  tree = folderService.getFoldersByUser(username,true);
+		return tree;
+    }
+	
+	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
 	@RequestMapping(value="/saveUserFile",method=RequestMethod.POST)
     public  @ResponseBody ResponseVO saveUserFile(@RequestBody UserVO userVO) {
 		folderService.saveUserFile(userVO);

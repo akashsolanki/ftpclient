@@ -1,5 +1,6 @@
 package org.springframework.security.samples.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FolderVO {
@@ -42,6 +43,8 @@ public class FolderVO {
 		this.parentId = parentId;
 	}
 	public List<FolderVO> getChildren() {
+		if(children==null)
+			children = new ArrayList();
 		return children;
 	}
 	public void setChildren(List<FolderVO> children) {
@@ -59,5 +62,4 @@ public class FolderVO {
 	public void setWrite(boolean write) {
 		this.write = write;
 	}
-	
 }

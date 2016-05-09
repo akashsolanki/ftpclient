@@ -76,5 +76,6 @@
     <script src="/resources/js/controller/users.js"></script>
     <script src="/resources/js/controller/edituser.js"></script>
     <script src="/resources/js/controller/permissions.js"></script>
+    <script src="/resources/js/controller/files.js"></script>
 </body>
 </html>

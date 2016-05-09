@@ -56,14 +56,6 @@ public class FolderServiceImpl implements FolderService {
 		rootVO.setType(root.isIsfolder());
 	}
 
-	@Override
-	public List<FolderVO> getFoldersByUser(String username) {
-		// TODO Auto-generated method stub
-		List<UserFolder> list = userFolderRepository.findByUsername(username);
-		List<FolderVO> foldervos = convertToFolderVO(list);
-		return foldervos;
-	}
-
 	private List<FolderVO> convertToFolderVO(List<UserFolder> list) {
 		// TODO Auto-generated method stub
 		List<FolderVO> lfoldervos  = new ArrayList<FolderVO>();
@@ -98,6 +90,22 @@ public class FolderServiceImpl implements FolderService {
 		userFolder.setFolderId(folderVO.getId());
 		userFolder.setUsername(username);
 		return userFolder;
+	}
+
+	@Override
+	public List<FolderVO> getFoldersByUser(String username, boolean all) {
+		// TODO Auto-generated method stub
+				List<UserFolder> list = userFolderRepository.findByUsername(username);
+				List<FolderVO> foldervos = convertToFolderVO(list);
+				if(all)
+				for(FolderVO folderVO : foldervos)
+				{
+					Folder root = folderRepository.findById(folderVO.getId());
+					FolderVO rootVO = new FolderVO();
+					copyToVO(root,folderVO);
+					buildtree(folderVO);
+				}
+				return foldervos;
 	}
 	
 	

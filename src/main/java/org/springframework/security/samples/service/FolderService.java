@@ -9,7 +9,7 @@ public interface FolderService {
 
 	FolderVO getFolderTree();
 
-	List<FolderVO> getFoldersByUser(String username);
+	List<FolderVO> getFoldersByUser(String username, boolean b);
 
 	void saveUserFile(UserVO userVO);
 }

@@ -35,7 +35,7 @@
         </tr>
         </tbody>
     </table>
-    <sec:authorize access="hasAnyRole('ROLE_SUPER')">
+    <sec:authorize access="hasAnyRole('ROLE_SUPER','ROLE_ADMIN')">
     <button ng-click="addPerm()" 
      class="btn btn-small btn-danger">Add Permissions</button>
     </sec:authorize>

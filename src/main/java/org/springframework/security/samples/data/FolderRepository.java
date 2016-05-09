@@ -13,4 +13,5 @@ public interface FolderRepository extends CrudRepository<Folder, Long> {
 	<S extends Folder> S save(S entity);
 	Folder findByNameIgnoreCase(String name);
 	List<Folder> findByParentId(Long parentId);
+	Folder findById(Long parentId);
 }
