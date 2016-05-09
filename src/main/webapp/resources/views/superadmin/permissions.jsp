@@ -10,6 +10,7 @@
 <body class="container">
 <table class="table table-striped table-condensed">
         <tbody>
+<!--         <tr><td>{{selectedFolder}}</td></tr> -->
         <tr>
             <td><select ng-change="onUserSelect();" ng-model="currentUser" ng-options="user.username for user in users">
   </select>
@@ -35,8 +36,8 @@
         </tbody>
     </table>
     <sec:authorize access="hasAnyRole('ROLE_SUPER')">
-    <button ng-click="update()" 
-     class="btn btn-small btn-danger">update</button>
+    <button ng-click="addPerm()" 
+     class="btn btn-small btn-danger">Add Permissions</button>
     </sec:authorize>
 </body>
 </html>

@@ -12,7 +12,9 @@ public class UserVO {
 	private String commonName;
 	private String distinguishedName;
 	private List<RoleVO> roles;
+	private List<FolderVO> folders;
 
+	
 	public UserVO(Attributes attr) throws NamingException {
 		  username = (String) attr.get("samaccountname").get();
           commonName = (String) attr.get("cn").get();
@@ -59,6 +61,12 @@ public class UserVO {
 
 	public void setRoles(List<RoleVO> roles) {
 		this.roles = roles;
+	}
+	public List<FolderVO> getFolders() {
+		return folders;
+	}
+	public void setFolders(List<FolderVO> folders) {
+		this.folders = folders;
 	}
 
 }

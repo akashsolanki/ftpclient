@@ -10,6 +10,7 @@ import org.springframework.security.samples.data.UserFolder;
 import org.springframework.security.samples.data.UserFolderRepository;
 import org.springframework.security.samples.service.FolderService;
 import org.springframework.security.samples.vo.FolderVO;
+import org.springframework.security.samples.vo.UserVO;
 import org.springframework.stereotype.Service;
 
 
@@ -76,6 +77,27 @@ public class FolderServiceImpl implements FolderService {
 			lfoldervos.add(foldervo);
 		}
 		return lfoldervos;
+	}
+
+	@Override
+	public void saveUserFile(UserVO userVO) {
+		// TODO Auto-generated method stub
+		userFolderRepository.deleteByUsername(userVO.getUsername());
+		for(FolderVO folderVO:userVO.getFolders())
+		{
+			UserFolder userFolder = getFolderFromVO(folderVO,userVO.getUsername());
+			userFolderRepository.save(userFolder);
+		}
+	}
+
+	private UserFolder getFolderFromVO(FolderVO folderVO,String username) {
+		// TODO Auto-generated method stub
+		UserFolder userFolder = new UserFolder();
+		userFolder.setCanRead(folderVO.isRead());
+		userFolder.setCanWrite(folderVO.isWrite());
+		userFolder.setFolderId(folderVO.getId());
+		userFolder.setUsername(username);
+		return userFolder;
 	}
 	
 	

@@ -1,8 +1,9 @@
 'use strict';
 	angularApp.controller('permissionCtrl',function($scope,$http,$rootScope) {
 		$scope.message = "Permissions Page";
-		$scope.selectedFolder = [{"id":3,"name":"folder2","type":true,"path":"/folder2","parentId":1,"read":true,"write":false,"children":[]}];
+		$scope.selectedFolder = [];
 		$scope.users = [];
+		$scope.initDataForTheTree = "";
 		$scope.currentUser="";
 		
 		$scope.getUsers = function(pageIndex){
@@ -16,7 +17,20 @@
 		$scope.getTree = function(){
 			$http.get('./folder/list').success(
 					function(data) {
-						$scope.dataForTheTree = data;
+						$scope.initDataForTheTree = angular.copy(data);
+						$scope.dataForTheTree = angular.copy(data);
+					}).error(function(data) {
+				console.log("error: " + data);
+			});
+		};
+		$scope.addPerm = function(){
+			$scope.currentUser.folders = $scope.selectedFolder;
+			$http.post('./folder/saveUserFile',$scope.currentUser).success(
+					function(data) {
+						if(data.isSuccess)
+							{
+							alert("Updated Successfully...");
+							}
 					}).error(function(data) {
 				console.log("error: " + data);
 			});
@@ -32,8 +46,9 @@
 			   
 			};
 		$scope.onUserSelect = function(){
-			$http.get('./folder/userlist/'+$scope.currentUser).success(
+			$http.get('./folder/userlist/'+$scope.currentUser.username).success(
 					function(data) {
+						$scope.dataForTheTree = angular.copy($scope.initDataForTheTree);
 						$scope.selectedFolder = data;
 					}).error(function(data) {
 				console.log("error: " + data);
