@@ -154,7 +154,24 @@ public class FolderServiceImpl implements FolderService {
 		return false;
 	}
 
-	
-	
-	
+	@Override
+	public void rename(String foldername, FolderVO folderVO, String username, String rootfolder) {
+		// TODO Auto-generated method stub
+		if(checkFolderPermissions(folderVO.getId(),username))
+		{
+			File files = new File(rootfolder+"\\"+folderVO.getPath());
+			File dest = new File(rootfolder+"\\"+folderVO.getPath().replace(folderVO.getName(), foldername));
+	        if (files.exists()) {
+	            if (files.renameTo(dest)) {
+	            	Folder folder = folderRepository.findById(folderVO.getId());
+	            	folder.setName(foldername);
+	            	folder.setPath(folderVO.getPath().replace(folderVO.getName(), foldername));
+	            	folderRepository.save(folder);
+	                System.out.println("Rename Done...!");
+	            } else {
+	                System.out.println("Failed to Rename!");
+	            }
+	        }
+		}
+	}
 }

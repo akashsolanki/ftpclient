@@ -54,6 +54,15 @@ public class FolderController {
 		return response;
     }
 	
+	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
+	@RequestMapping(value="/rename/{foldername}",method=RequestMethod.POST)
+    public@ResponseBody ResponseVO rename(@PathVariable String foldername,@RequestBody FolderVO folderVO) {
+		folderService.rename(foldername,folderVO,SecurityContextHolder.getContext().getAuthentication().getName(),rootfolder);
+		ResponseVO response = new ResponseVO(); 
+		response.setIsSuccess(true);
+		return response;
+    }
+	
 	@RequestMapping(value="/folderlist",method=RequestMethod.GET)
     public @ResponseBody List<FolderVO> getPermittedFolder() {
 		String username  = SecurityContextHolder.getContext().getAuthentication().getName();

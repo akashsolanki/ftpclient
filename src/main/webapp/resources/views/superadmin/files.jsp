@@ -13,7 +13,8 @@
 <!--         <tr><td>{{selectedFolder}}</td></tr> -->
         <tr>
             <td><button ng-click="createFolder()" 
-     class="btn btn-small btn-danger">createFolder</button>
+     class="btn btn-small btn-danger">createFolder</button><button ng-click="rename()" 
+     class="btn btn-small btn-danger">Rename</button>
     </td>    <td><treecontrol class="tree-classic"
    tree-model="dataForTheTree"
    options="treeOptions"

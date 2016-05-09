@@ -14,4 +14,6 @@ public interface FolderService {
 	void saveUserFile(UserVO userVO);
 
 	void createFolder(String foldername, FolderVO folderVO, String name, String rootfolder);
+
+	void rename(String foldername, FolderVO folderVO, String name, String rootfolder);
 }

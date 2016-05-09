@@ -18,6 +18,14 @@
 				console.log("error: " + data);
 			});
 		};
+		$scope.rename = function(){
+			$http.post('./folder/rename/newfolder',$scope.selectedFolder).success(
+					function(data) {
+						init();
+					}).error(function(data) {
+				console.log("error: " + data);
+			});
+		};
 		var init = function() {
 			$scope.getFolderList();
 		};
