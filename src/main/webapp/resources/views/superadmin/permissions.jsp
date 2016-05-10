@@ -6,7 +6,53 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style>
+  .custom-fa input[type="checkbox"] {position:absolute;left:-999px;}
+
+.custom-fa input[type="checkbox"]:focus + span{color:#ffffff;}
+
+.custom-fa label{cursor: pointer;}
+
+.custom-fa label input[type="checkbox"] + span:before { 
+
+    font-family: FontAwesome;
+
+    content: "\f096";  
+
+    display: inline-block;
+
+    font-weight: 400;
+
+    font-style: normal;
+
+    font-size: 1.4em;
+
+    text-align:center;
+
+    letter-spacing: 6px;
+
+  }
+
+.custom-fa label input[type="checkbox"]:checked + span:before { content: "\f046";letter-spacing: 3px; } /* checked icon */
+
+.custom-fa label input[type="checkbox"]:indeterminate + span:before{content: "\f147";letter-spacing: 6px;}
+
+
+
+
+
+
 </style>
+<script>
+$("[type=checkbox]").change(function () {
+    $checkbox = $(this)
+    $icon = $checkbox.siblings("[class*=icon-]")
+
+    checked = $checkbox.is(":checked")
+
+    $icon.toggleClass('icon-check', checked)
+        .toggleClass('icon-check-empty', !checked)
+});
+</script>
 <title>Users</title>
 </head>
 <body class="container">
@@ -31,7 +77,13 @@
              <span ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
              <span ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
          </span>
-   {{node.name}}  <span class="label label-default">Read <input type="checkbox" ng-model="node.read" id="checkbox2" /></span> &nbsp;<span class="label label-default">   Write <input type="checkbox" ng-model="node.write" /></span>
+   <b>{{node.name}}</b>  
+		<span class="label label-default custom-fa">
+		    <label for="readCheck{{node.id}}"><input id="readCheck{{node.id}}" type="checkbox" ng-model="node.read" /><span> Read</span></label>
+		  </span> &nbsp;
+		<span class="label label-default custom-fa">
+		    <label for="writeCheck{{node.id}}"><input id="writeCheck{{node.id}}" type="checkbox" ng-model="node.write" /><span> Write</span></label></span>
+		    </span>
 </treecontrol>
     </td>
         </tr>

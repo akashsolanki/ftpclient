@@ -10,13 +10,15 @@
 <title>Insert title here</title>
 <link href="/resources/css/menu.css" rel="stylesheet"/>
 <link href="/resources/css/bootstrap.css" rel="stylesheet"/>
+<link href="/resources/css/font-awesome.css" rel="stylesheet"/>
+<link href="/resources/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
 <body class="" ng-app="myApp">
   <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-             <p class="pull-right lead" >
+             <p class="pull-right lead">
         Hello <b><c:out value="${pageContext.request.remoteUser}"/></b>
             </p> 
              <a href="#menu" id="toggle"><span></span></a>
