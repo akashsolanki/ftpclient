@@ -16,6 +16,9 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <p class="pull-right lead" >
+        Hello <b><c:out value="${pageContext.request.remoteUser}"/></b>
+            </p> 
              <a href="#menu" id="toggle"><span></span></a>
   <div id="menu" ng-controller="mainCtrl">
     <ul>
@@ -39,17 +42,17 @@
                
             </div>
             <!-- /.navbar-collapse -->
+            
         </div>
         <!-- /.container -->
     </nav>
 
     <!-- Page Content -->
     <div class="container" style="margin-top:100px;" >
+    	<p class="pull-right">FreeSpace: ${freespace}</p>
         <header class="jumbotron hero-spacer"> 
            <div>
-           <p>
-        Hello <b><c:out value="${pageContext.request.remoteUser}"/></b>
-            </p>FreeSpace: ${freespace} 
+          
      			<div data-ng-view></div>
 			</div>
         </header>
