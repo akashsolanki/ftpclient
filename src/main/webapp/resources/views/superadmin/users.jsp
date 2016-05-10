@@ -8,11 +8,15 @@
 <title>Users</title>
 </head>
 <body class="container">
+<sec:authorize access="hasAnyRole('ROLE_SUPER')">
+    <a href="#/newuser" title="Create new user" class="pull-right btn btn-sm btn-primary glyphicon glyphicon-plus"></a>
+    <input type="text" placeholder="Search..." class="form-control" style="width:25%"/>
+    </sec:authorize> </br>
 <table class="table table-striped table-condensed">
         
         <thead>
         <tr>
-            <th style="min-width: 80px;">Username</th>
+            <th style="min-width: 80px;"></th>
            <sec:authorize access="hasAnyRole('ROLE_SUPER')">
             <th style="width:20px;"> </th>
             </sec:authorize>
@@ -23,17 +27,14 @@
         <tr ng-repeat="user in users">
             <td>{{user.username}}</td>
             <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-            <td><a href="#/edituser/{{user.username}}" class="btn btn-small btn-primary">edit</a></td>
+            <td><a href="#/edituser/{{user.username}}" class="btn btn-small btn-primary glyphicon glyphicon-edit"></a></td>
             </sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_SUPER')">
             <td><button confirmed-click="deleteUser('{{user.username}}')" 
-    ng-confirm-click="Are you sure Want to Delete the User ?" class="btn btn-small btn-danger">delete</button>
+    ng-confirm-click="Are you sure Want to Delete the User ?" class="btn btn-small btn-danger glyphicon glyphicon-remove"></button>
             </sec:authorize>
         </tr>
         </tbody>
     </table>
-    <sec:authorize access="hasAnyRole('ROLE_SUPER')">
-    <a href="#/newuser" class="btn btn-small">create new user</a>
-    </sec:authorize>
 </body>
 </html>
