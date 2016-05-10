@@ -10,8 +10,8 @@
 <body class="container">
 <sec:authorize access="hasAnyRole('ROLE_SUPER')">
     <a href="#/newuser" title="Create new user" class="pull-right btn btn-sm btn-primary glyphicon glyphicon-plus"></a>
-    <input type="text" placeholder="Search..." class="form-control" style="width:25%"/>
-    </sec:authorize> </br>
+    </sec:authorize>
+    <input type="text" placeholder="Search..." class="form-control" style="width:25%"/> </br>
 <table class="table table-striped table-condensed">
         
         <thead>

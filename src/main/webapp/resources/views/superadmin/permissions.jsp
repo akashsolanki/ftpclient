@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style>
+</style>
 <title>Users</title>
 </head>
 <body class="container">
@@ -12,7 +14,7 @@
         <tbody>
 <!-- <tr><td>{{selectedFolder}}</td></tr> -->
         <tr>
-            <td><select ng-change="onUserSelect();" ng-model="currentUser" ng-options="user.username for user in users">
+            <td><select class="form-control" style="width:30%" ng-change="onUserSelect();" ng-model="currentUser" ng-options="user.username for user in users">
   </select>
     </td>    <td><treecontrol class="tree-classic"
    tree-model="dataForTheTree"
@@ -29,7 +31,7 @@
              <span ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
              <span ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
          </span>
-   {{node.name}}  Read<input type="checkbox" ng-model="node.read"/>   Write<input type="checkbox" ng-model="node.write" />
+   {{node.name}}  <span class="label label-default">Read <input type="checkbox" ng-model="node.read" id="checkbox2" /></span> &nbsp;<span class="label label-default">   Write <input type="checkbox" ng-model="node.write" /></span>
 </treecontrol>
     </td>
         </tr>
