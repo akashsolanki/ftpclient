@@ -7,14 +7,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Users</title>
 </head>
-<body class="container">
+<body class="container" ng-controller="fileCtrl">
+ 
+  <modal visible="showModal">
+      <input type="text" placeholder="{{buttonClicked}}" ng-model="foldername" ng-show="action!='delete'"/></br></br>
+      <button ng-click="action!='delete' && folderActions(foldername,action)" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Submit</button>
+  </modal>
 <table class="table table-striped table-condensed">
         <tbody>
 <!--         <tr><td>{{selectedFolder}}</td></tr> -->
         <tr>
-            <td><button ng-click="createFolder()" 
-     class="btn btn-small btn-danger">createFolder</button><button ng-click="rename()" 
-     class="btn btn-small btn-danger">Rename</button>
+             <td>
+     <div class="">
+   <div class="dropdown">
+        <button  data-toggle="dropdown" class="btn btn-default dropdown-toggle">Actions <b class="caret"></b></button>
+        <ul class="dropdown-menu">
+            <li><a ng-click="toggleModal('Enter Folder Name','create')">Create</a></li>
+            <li><a ng-click="toggleModal('Are you sure you want to delete?','delete')">Delete</a></li>
+            <li><a ng-click="toggleModal('Enter new name','rename')">Rename</a></li>
+            <li><a >Upload</a></li>
+        </ul>
+    </div>
+</div>
     </td>    <td><treecontrol class="tree-classic"
    tree-model="dataForTheTree"
    options="treeOptions"
@@ -36,8 +50,5 @@
         </tr>
         </tbody>
     </table>
-    
-    
-    
 </body>
 </html>
