@@ -135,6 +135,10 @@ public class FolderController {
 	        try {
 	        	InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
 				FileCopyUtils.copy(inputStream, response.getOutputStream());
+				if(file.getName().contains("zip"))
+				{
+					file.delete();
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
