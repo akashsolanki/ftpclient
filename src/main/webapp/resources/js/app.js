@@ -2,7 +2,6 @@ var angularApp = angular.module('myApp', ['ngRoute','treeControl']);
 
 angularApp.controller("mainCtrl",function($scope,$rootScope){
 });
-
 angularApp.directive('ngConfirmClick', [
                                  function(){
                                      return {
@@ -25,9 +24,6 @@ angularApp.config([ '$routeProvider','$httpProvider',  function($routeProvider,$
     	}).when('/permissions',{
     		templateUrl: 'resources/views/superadmin/permissions.jsp',
     		controller: 'permissionCtrl'
-    	}).when('/edituser/:username',{
-    		templateUrl: 'resources/views/superadmin/edituser.jsp',
-    		controller: 'editUserCtrl'
     	}).when('/files',{
     		templateUrl: 'resources/views/superadmin/files.jsp',
     		controller: 'fileCtrl'
