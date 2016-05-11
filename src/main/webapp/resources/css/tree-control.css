@@ -24,7 +24,7 @@ treecontrol ul {
 treecontrol li {
     position: relative;
     padding: 0 0 0 20px;
-    line-height: 20px;
+    line-height: 28px;
 }
 
 treecontrol li.tree-expanded i.tree-leaf-head, treecontrol li.tree-collapsed i.tree-leaf-head {display:none;}
