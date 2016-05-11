@@ -60,7 +60,7 @@ $("[type=checkbox]").change(function () {
         <tbody>
 <!-- <tr><td>{{selectedFolder}}</td></tr> -->
         <tr>
-            <td><select class="form-control" style="width:30%" ng-change="onUserSelect();" ng-model="currentUser" ng-options="user.username for user in users">
+            <td><select class="form-control" style="width:50%" ng-change="onUserSelect();" ng-model="currentUser" ng-options="user.username for user in users">
   </select>
     </td>    <td><treecontrol class="tree-classic"
    tree-model="dataForTheTree"
@@ -78,10 +78,10 @@ $("[type=checkbox]").change(function () {
              <span ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
          </span>
    <b>{{node.name}}</b>  
-		<span class="label label-default custom-fa">
+		<span class="label label-primary custom-fa">
 		    <label for="readCheck{{node.id}}"><input id="readCheck{{node.id}}" type="checkbox" ng-model="node.read" /><span> Read</span></label>
 		  </span> &nbsp;
-		<span class="label label-default custom-fa">
+		<span class="label label-primary custom-fa">
 		    <label for="writeCheck{{node.id}}"><input id="writeCheck{{node.id}}" type="checkbox" ng-model="node.write" /><span> Write</span></label></span>
 		    </span>
 </treecontrol>
