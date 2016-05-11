@@ -143,8 +143,7 @@ console.log(headers['content-disposition'].split(/["']/g)[1].replace(/["']/g, ""
 		$scope.folderActions = function(foldername,action){
 				if(action!="upload")
 				{
-					$scope.foldername = "";
-					$http.post('./folder/'+action,$scope.selectedFolder).success(
+					$http.post('./folder/'+action+'/'+foldername,$scope.selectedFolder).success(
 							function(data) {
 								init();
 							}).error(function(data) {
