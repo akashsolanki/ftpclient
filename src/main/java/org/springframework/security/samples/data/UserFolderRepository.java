@@ -14,10 +14,17 @@ public interface UserFolderRepository extends CrudRepository<UserFolder, Long> {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	<S extends UserFolder> S save(S entity);
 	List<UserFolder> findByUsername(String username);
+	
 	@Query("Delete FROM UserFolder as userfolder WHERE userfolder.username = ?1")
 	@Modifying
 	@Transactional
 	void deleteByUsername(String username);
+	
+	@Query("Delete FROM UserFolder as userfolder WHERE userfolder.folderId = ?1")
+	@Modifying
+	@Transactional
+	void deleteByFolderId(Long folderId);
+	
 	
 	List<UserFolder> findByFolderIdAndUsernameAllIgnoreCase(long folderId, String username);
 }

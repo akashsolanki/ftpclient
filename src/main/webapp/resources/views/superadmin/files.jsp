@@ -7,11 +7,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Users</title>
 </head>
-<body class="container" ng-controller="fileCtrl">
+<body class="container">
  
   <modal visible="showModal">
-      <input type="text" placeholder="{{buttonClicked}}" ng-model="foldername" ng-show="action!='delete'"/></br></br>
-      <button ng-click="action!='delete' && folderActions(foldername,action)" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Submit</button>
+
+      <div class="outline" ng-show="action=='upload'">
+      <input type="file" id="file" class="dropzone" onchange="angular.element(this).scope().filesChanged(this)" multiple ng-show="action=='upload'"/>
+      <label for="file"><strong>Choose files</strong><span class="box__dragndrop"> or drag them here</span>.</label>
+      <br/>
+      <span ng-repeat="file in files" style="padding-left:10px">
+    	<strong>({{file.name}}){{$index!=files.length-1?',':''}}</strong> 
+		</span>
+
+      </div>
+      <input type="text" placeholder="{{buttonClicked}}" ng-model="foldername" ng-show="action!='delete' && action!='upload'"/>
+      <button ng-click="folderActions(foldername,action)" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Submit</button>
+
+	
   </modal>
 <table class="table table-striped table-condensed">
         <tbody>
@@ -25,7 +37,8 @@
             <li><a ng-click="toggleModal('Enter Folder Name','create')">Create</a></li>
             <li><a ng-click="toggleModal('Are you sure you want to delete?','delete')">Delete</a></li>
             <li><a ng-click="toggleModal('Enter new name','rename')">Rename</a></li>
-            <li><a >Upload</a></li>
+            <li><a ng-click="toggleModal('Select File to Upload','upload')">Upload</a></li>
+            <li><a ng-click="downloadFile()">Download</a></li>
         </ul>
     </div>
 </div>
@@ -34,16 +47,6 @@
    options="treeOptions"
    on-selection="showSelected(node, selected, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)"
    selected-node="selectedFolder">
-    <span ng-switch="" on="node.type">
-             <span ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-             <span ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-             <span ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-             <span ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-             <span ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
-             <span ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-             <span ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
-             <span ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-         </span>
    {{node.name}}  
 </treecontrol>
     </td>

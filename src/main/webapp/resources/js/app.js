@@ -2,6 +2,7 @@ var angularApp = angular.module('myApp', ['ngRoute','treeControl']);
 
 angularApp.controller("mainCtrl",function($scope,$rootScope){
 });
+
 angularApp.directive('ngConfirmClick', [
                                  function(){
                                      return {

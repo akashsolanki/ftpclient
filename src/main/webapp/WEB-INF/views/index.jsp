@@ -8,8 +8,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link href="/resources/css/menu.css" rel="stylesheet"/>
+
 <link href="/resources/css/bootstrap.css" rel="stylesheet"/>
+<link href="/resources/css/menu.css" rel="stylesheet"/>
+<link href="/resources/css/dropzone.css" rel="stylesheet"/>
+
 </head>
 <body class="" ng-app="myApp">
   <!-- Navigation -->
@@ -69,6 +72,9 @@
     <script src="/resources/js/shared/angular.min.js"></script>
     <script src="/resources/js/shared/angular-route.min.js"></script>
     <script src="/resources/js/shared/angular-sanitize.js"></script>
+    <script src="/resources/js/shared/dropzone.js"></script>
+    
+    
     <script type="text/javascript" src="/resources/js/shared/angular-tree-control.js"></script>
 <!-- link for CSS when using the tree as a Dom element -->
 <link rel="stylesheet" type="text/css" href="/resources/css/tree-control.css">

@@ -1,6 +1,13 @@
 package org.springframework.security.samples.service.impl;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +17,11 @@ import org.springframework.security.samples.data.FolderRepository;
 import org.springframework.security.samples.data.UserFolder;
 import org.springframework.security.samples.data.UserFolderRepository;
 import org.springframework.security.samples.service.FolderService;
+import org.springframework.security.samples.util.ZIPUtil;
 import org.springframework.security.samples.vo.FolderVO;
 import org.springframework.security.samples.vo.UserVO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -173,5 +182,88 @@ public class FolderServiceImpl implements FolderService {
 	            }
 	        }
 		}
+	}
+
+	@Override
+	public void saveFiles(MultipartFile[] files, Long folderId, String username, String rootfolder) {
+		// TODO Auto-generated method stub
+		if(checkFolderPermissions(folderId,username))
+		{
+			Folder folder= folderRepository.findById(folderId);
+			for(MultipartFile file:files)
+			{
+				try
+				{
+					File dest = new File(rootfolder+"\\"+folder.getPath()+"\\"+file.getOriginalFilename());
+					file.transferTo(dest);
+					Folder nfolder = new Folder();
+					nfolder.setIsfolder(false);
+					nfolder.setName(file.getOriginalFilename());
+					nfolder.setParentId(folderId);
+					nfolder.setPath(folder.getPath()+"\\"+file.getOriginalFilename());
+	            	folderRepository.save(nfolder);
+	                System.out.println("Multiple directories are created!");
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void delete(String foldername, FolderVO folderVO, String username, String rootfolder) {
+		// TODO Auto-generated method stub
+		if(checkFolderPermissions(folderVO.getId(),username))
+		{
+			Path path = FileSystems.getDefault().getPath(rootfolder+"\\"+folderVO.getPath());
+	        boolean success = false;
+			try {
+				Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+					   @Override
+					   public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+						   Files.delete(file);
+						   return FileVisitResult.CONTINUE;
+					   }
+
+					   @Override
+					   public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+						   Files.delete(dir);
+						   return FileVisitResult.CONTINUE;
+					   }});
+				deleteFromDB(folderVO.getId());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	   }
+	}
+
+	private void deleteFromDB(long id) {
+		// TODO Auto-generated method stub
+		List<Folder> folders = folderRepository.findByParentId(id);
+		folderRepository.delete(id);
+		userFolderRepository.deleteByFolderId(id);
+		for(Folder folder:folders)
+		{
+			deleteFromDB(folder.getId());
+		}
+	}
+
+	@Override
+	public File getFile(Long folderId, String username, String rootfolder) {
+		// TODO Auto-generated method stub
+		if(checkFolderPermissions(folderId,username))
+		{
+			Folder folder = folderRepository.findById(folderId);
+			File file = null;
+			if(folder.isIsfolder())
+				file = ZIPUtil.zipDirectory(new File(rootfolder+"\\"+folder.getPath()), folder.getName()+".zip");
+			else
+				file = new File(rootfolder+"\\"+folder.getPath());
+	        return file;
+		}
+		return null;
 	}
 }
