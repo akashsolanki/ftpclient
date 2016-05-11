@@ -10,9 +10,9 @@
 <title>Insert title here</title>
 <link href="/resources/css/menu.css" rel="stylesheet"/>
 <link href="/resources/css/bootstrap.css" rel="stylesheet"/>
-<link href="/resources/css/dropzone.css" rel="stylesheet"/>
 <link href="/resources/css/font-awesome.css" rel="stylesheet"/>
 <link href="/resources/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="/resources/css/dropzone.css" rel="stylesheet"/>
 </head>
 <body class="" ng-app="myApp">
   <!-- Navigation -->
