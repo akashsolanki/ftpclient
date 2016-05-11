@@ -9,10 +9,11 @@
 </head>
 <body class="container">
 <div style="width:60%;display:inline-block;background-color: #e3e7e8;" class="jumbotron">
+<p class="lead">List of Users</p>
 <sec:authorize access="hasAnyRole('ROLE_SUPER')">
     <a href="#/newuser" title="Create new user" class="pull-right btn btn-sm btn-primary glyphicon glyphicon-plus"></a>
     </sec:authorize>
-    <input type="text" placeholder="Search..." class="form-control" style="width:25%"/> </br>
+    <input type="text" placeholder="Search..." class="form-control" style="width:35%" ng-model="query.username"/> </br>
 <table class="table  table-condensed table-hover">
         
         <thead>
@@ -25,7 +26,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in users | filter : query">
             <td>{{user.username}}</td>
             <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
             <td><a  ng-click="editUser(user.username)" class="btn btn-small btn-primary glyphicon glyphicon-edit"></a></td>
@@ -41,11 +42,10 @@
     
     
     <div style="width:35%;display:inline-block;float:right;background-color: #e3e7e8;" class="jumbotron" ng-show="editUserFlag">
+    <p class="lead">Assign Roles</p>
     	<table class="table table-striped table-condensed">
         <thead>
-        <tr>
-            <th style="min-width: 80px;" class="lead">Username:{{user.username}}</th>
-        </tr>
+        
         </thead>
         <tbody>
         <tr>
@@ -59,6 +59,11 @@
     <button ng-click="update()" 
      class="btn btn-small btn-danger">update</button>
     </sec:authorize>
+    
     </div>
+    <div id="alertDiv" class="alert alert-success fade in" ng-show="afterUpdate">
+     <a class="close" ng-click="hide();" aria-label="close">&times;</a>
+    <strong>Updated!</strong> Roles have been saved.
+  </div>
 </body>
 </html>

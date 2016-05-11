@@ -3,6 +3,7 @@
 		console.log('check');
 		$scope.users = [];
 		$scope.editUserFlag = false;
+		$scope.afterUpdate = false;
 		$scope.getUsers = function(pageIndex){
 			$http.get('./user/list').success(
 					function(data) {
@@ -35,7 +36,10 @@
 						console.log("error: " + data);
 					});
 				};
-				$scope.update = function(){ $scope.editUserFlag = false;
+				$scope.update = function(){ 
+					$scope.editUserFlag = false;
+					$("#alertDiv").show();
+					$scope.afterUpdate = true;
 					$http.post('./user/edit',$scope.user).success(
 							function(data) {
 								if(data.isSuccess)
@@ -44,6 +48,9 @@
 							}).error(function(data) {
 						console.log("error: " + data);
 					});
+					 window.setTimeout(function() {$scope.afterUpdate = false;$("#alertDiv").hide();}, 3000);
+				};
+				$scope.hide = function(){ $("#alertDiv").hide();
 				};
 				var init = function() {
 					$scope.getUser(username);
