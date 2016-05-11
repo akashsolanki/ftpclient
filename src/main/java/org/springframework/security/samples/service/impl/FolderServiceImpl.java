@@ -212,9 +212,9 @@ public class FolderServiceImpl implements FolderService {
 	}
 
 	@Override
-	public void delete(String foldername, FolderVO folderVO, String username, String rootfolder) {
+	public void delete(FolderVO folderVO, String username, String rootfolder) {
 		// TODO Auto-generated method stub
-		if(checkFolderPermissions(folderVO.getId(),username))
+		if(checkFolderPermissions(folderVO.getId(),username)&&folderVO.getId()!=1)
 		{
 			Path path = FileSystems.getDefault().getPath(rootfolder+"\\"+folderVO.getPath());
 	        boolean success = false;

@@ -16,7 +16,16 @@ angularApp.controller('fileCtrl',function($scope,$http,$rootScope) {
 		};
 		
 		$scope.filesChanged = function(ele){
-			$scope.files = ele.files;
+			console.log(ele.files);
+			console.log($scope.files);
+			if($scope.files==undefined)
+				{
+				$scope.files = [];
+				}
+			angular.forEach(ele.files, function(file, key) {
+					console.log(file);
+					$scope.files.push(file);  
+					});
 			$scope.$apply();
 		}
 		
@@ -135,7 +144,7 @@ console.log(headers['content-disposition'].split(/["']/g)[1].replace(/["']/g, ""
 				if(action!="upload")
 				{
 					$scope.foldername = "";
-					$http.post('./folder/'+action+'/'+foldername,$scope.selectedFolder).success(
+					$http.post('./folder/'+action,$scope.selectedFolder).success(
 							function(data) {
 								init();
 							}).error(function(data) {
@@ -163,6 +172,8 @@ console.log(headers['content-disposition'].split(/["']/g)[1].replace(/["']/g, ""
 					});
 					
 			}
+				$scope.foldername="";
+				$scope.files=undefined;
 				
 		};
 		

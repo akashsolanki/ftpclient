@@ -21,7 +21,7 @@ public interface FolderService {
 
 	void saveFiles(MultipartFile[] files, Long folderId, String username, String rootfolder);
 
-	void delete(String foldername, FolderVO folderVO, String name, String rootfolder);
+	void delete(FolderVO folderVO, String name, String rootfolder);
 
 	File getFile(Long folderId, String name, String rootfolder);
 }

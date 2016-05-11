@@ -78,9 +78,9 @@ public class FolderController {
     }
 	
 	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
-	@RequestMapping(value="/delete/{foldername}",method=RequestMethod.POST)
-    public@ResponseBody ResponseVO delete(@PathVariable String foldername,@RequestBody FolderVO folderVO) {
-		folderService.delete(foldername,folderVO,SecurityContextHolder.getContext().getAuthentication().getName(),rootfolder);
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+    public@ResponseBody ResponseVO delete(@RequestBody FolderVO folderVO) {
+		folderService.delete(folderVO,SecurityContextHolder.getContext().getAuthentication().getName(),rootfolder);
 		ResponseVO response = new ResponseVO(); 
 		response.setIsSuccess(true);
 		return response;
