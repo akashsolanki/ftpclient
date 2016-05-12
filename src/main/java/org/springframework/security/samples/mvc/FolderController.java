@@ -37,7 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/folder")
 public class FolderController {
 	
-	@Value("${rootfolder}")
+	@Value("${property.root.path}")
 	private String rootfolder;
 	
 	@Autowired

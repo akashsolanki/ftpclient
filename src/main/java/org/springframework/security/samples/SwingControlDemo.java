@@ -64,8 +64,8 @@ public class SwingControlDemo{
 		 
 	      headerLabel.setText("GGK | SNA | FTPClient"); 
 
-	      JLabel  namelabel= new JLabel("Repository Path : ", JLabel.RIGHT); 
-	      final JTextField userText = new JTextField(6);
+	      JLabel  namelabel= new JLabel("Directory Path : ", JLabel.RIGHT); 
+	      final JTextField userText = new JTextField(25);
 
 	      JButton loginButton = new JButton("Enter");
 	      loginButton.addActionListener(new ActionListener() { 
@@ -76,7 +76,7 @@ public class SwingControlDemo{
 	            
 	            SpringApplication springApplication = new SpringApplication(new Object[]{Application.class});
 	            Map<String, Object> defaultProperties = new HashMap<String, Object>();
-			    defaultProperties.put("property.repository.path", repositoryPath);
+			    defaultProperties.put("property.root.path", repositoryPath);
 			    springApplication.setDefaultProperties(defaultProperties);
 			    
 		      springApplication.run(args);
