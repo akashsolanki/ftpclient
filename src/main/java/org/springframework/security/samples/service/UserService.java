@@ -15,4 +15,8 @@ public interface UserService {
 	List<RoleVO> getRoles();
 
 	void update(UserVO userVO);
+	
+	String reset(UserVO userVO);
+	
+	String create(UserVO userVO);
 }
