@@ -2,6 +2,7 @@ package org.springframework.security.samples.mvc;
 
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.samples.service.UserService;
@@ -31,9 +32,12 @@ public class UserController {
 	
 	@Secured("ROLE_SUPER")
 	@RequestMapping(value="/create",method=RequestMethod.POST)
-    public @ResponseBody List<UserVO> createUser(@RequestBody UserVO userVO) {
-		List<UserVO> userList = userService.getUserList();
-		return userList;
+    public @ResponseBody ResponseVO createUser(@RequestBody UserVO userVO) {
+		String password = userService.create(userVO);
+		ResponseVO response = new ResponseVO(); 
+		response.setIsSuccess(true);
+		response.setReturnObject(password);
+		return response;
     }
 	
 	@Secured("ROLE_SUPER")
@@ -42,6 +46,16 @@ public class UserController {
 		userService.update(userVO);
 		ResponseVO response = new ResponseVO(); 
 		response.setIsSuccess(true);
+		return response;
+    }
+	
+	@Secured("ROLE_SUPER")
+	@RequestMapping(value="/reset",method=RequestMethod.POST)
+    public @ResponseBody ResponseVO resetPassword(@RequestBody UserVO userVO) {
+		String newPassword = userService.reset(userVO);
+		ResponseVO response = new ResponseVO(); 
+		response.setIsSuccess(true);
+		response.setReturnObject(newPassword);
 		return response;
     }
 	
@@ -67,4 +81,5 @@ public class UserController {
 		response.setIsSuccess(true);
 		return response;
     }
+	
 }
