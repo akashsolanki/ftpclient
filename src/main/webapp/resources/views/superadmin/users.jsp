@@ -8,10 +8,16 @@
 <title>Users</title>
 </head>
 <body class="container">
+<modal visible="showModal">
+	
+		<p>Username:{{modalusername}}</p>
+		<p>Password:{{newUserPassword}}</p>
+		<button class="btn btn-default" style="margin-left:40%;width:7%;" ng-click="toggleModal('','');">Ok</button>
+  </modal>
 <div style="width:60%;display:inline-block;background-color: #e3e7e8;" class="jumbotron">
-<p class="lead">List of Users</p>
+<p class="lead">List of Users</p> <hr>
 <sec:authorize access="hasAnyRole('ROLE_SUPER')">
-    <a href="#/newuser" title="Create new user" class="pull-right btn btn-sm btn-primary glyphicon glyphicon-plus"></a>
+    <a title="Create new user" class="pull-right btn btn-sm btn-primary glyphicon glyphicon-plus" ng-click="createNewUser();createUserFlag=true;editUserFlag=false;"></a>
     </sec:authorize>
     <input type="text" placeholder="Search..." class="form-control" style="width:35%" ng-model="query.username"/> </br>
 <table class="table  table-condensed table-hover">
@@ -29,7 +35,7 @@
         <tr ng-repeat="user in users | filter : query">
             <td>{{user.username}}</td>
             <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-            <td><a  ng-click="editUser(user.username)" class="btn btn-small btn-primary glyphicon glyphicon-edit"></a></td>
+            <td><a  ng-click="editUser(user.username);" class="btn btn-small btn-primary glyphicon glyphicon-edit"></a></td>
             </sec:authorize>
             <sec:authorize access="hasAnyRole('ROLE_SUPER')">
             <td><button confirmed-click="deleteUser('{{user.username}}')" 
@@ -42,7 +48,7 @@
     
     
     <div style="width:35%;display:inline-block;float:right;background-color: #e3e7e8;" class="jumbotron" ng-show="editUserFlag">
-    <p class="lead">Assign Roles</p>
+    <p class="lead">Edit User</p> <hr>
     	<table class="table table-striped table-condensed">
         <thead>
         
@@ -58,9 +64,33 @@
     <sec:authorize access="hasAnyRole('ROLE_SUPER')">
     <button ng-click="update()" 
      class="btn btn-small btn-danger">update</button>
+     <button ng-click="resetPassword();toggleModal('New password ');" 
+     class="btn btn-small btn-primary">Reset Password</button>
+    </sec:authorize>
+    </div>
+    
+    <sec:authorize access="hasAnyRole('ROLE_SUPER')">
+     <div style="width:35%;display:inline-block;float:right;background-color: #e3e7e8;" class="jumbotron" ng-show="createUserFlag">
+    <p class="lead">Create User</p> <hr>
+    <input type="text" class="form-control" placeholder="Username.." ng-model="newUser.username"/></br>
+    <table class="table table-striped table-condensed">
+        <thead>
+        
+        </thead>
+        <tbody>
+        <tr>
+            <td><select ng-model="newUser.roles" ng-options="role.roleName for role in roles track by role.roleId" multiple>
+  </select>
+    </td>
+        </tr>
+        </tbody>
+    </table>
+    <button ng-click="createUser();toggleModal('Details of new User');" 
+     class="btn btn-small btn-primary">Create</button>
+      </div>
     </sec:authorize>
     
-    </div>
+   
     <div id="alertDiv" class="alert alert-success fade in" ng-show="afterUpdate">
      <a class="close" ng-click="hide();" aria-label="close">&times;</a>
     <strong>Updated!</strong> Roles have been saved.
