@@ -8,12 +8,15 @@ import java.util.List;
 import javax.naming.NamingException;
 import javax.naming.ldap.LdapContext;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.samples.config.test.ActiveDirectory;
 import org.springframework.security.samples.data.Role;
 import org.springframework.security.samples.data.RoleRepository;
+import org.springframework.security.samples.data.User;
 import org.springframework.security.samples.data.UserRepository;
 import org.springframework.security.samples.data.UserRole;
 import org.springframework.security.samples.data.UserRoleRepository;
@@ -129,4 +132,41 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public String create(UserVO userVO) {
+		User user = new User();
+		user.setUsername(userVO.getUsername());
+		String password = RandomStringUtils.random(8, true, true);
+		BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = bCryptEncoder.encode(password);
+		user.setPassword(hashedPassword);
+		user.setCreated(Calendar.getInstance());
+		org.springframework.security.samples.data.User savedUser = userRepository.save(user);
+		
+		for(RoleVO role :userVO.getRoles())
+		{
+			UserRole userrole = new UserRole();
+			userrole.setCreated(Calendar.getInstance());
+			userrole.setRoleId(role.getRoleId());
+			userrole.setUsername(savedUser.getUsername());
+			userRoleRepository.save(userrole);
+		}
+		
+		return password;
+	}
+
+	@Override
+	public String reset(UserVO userVO) {
+		
+		org.springframework.security.samples.data.User user = userRepository.findByUsername(userVO.getUsername());
+		
+		String password = RandomStringUtils.random(8, true, true);
+		BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = bCryptEncoder.encode(password);
+		user.setPassword(hashedPassword);
+		userRepository.save(user);
+		return password;
+	}
+	
+	
 }
