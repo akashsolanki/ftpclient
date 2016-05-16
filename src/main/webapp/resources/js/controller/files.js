@@ -29,9 +29,9 @@ angularApp.controller('fileCtrl',function($scope,$http,$rootScope) {
 			$scope.$apply();
 		}
 		
-		$scope.downloadFile = function() {
+		$scope.downloadFile = function(folderId) {
 		    // Use an arraybuffer
-		    $http.get('./folder/download/'+$scope.selectedFolder.id, { responseType: 'arraybuffer' })
+		    $http.get('./folder/download/'+folderId, { responseType: 'arraybuffer' })
 		    .success( function(data, status, headers) {
 
 		        var octetStreamMime = 'application/octet-stream';
