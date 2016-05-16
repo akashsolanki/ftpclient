@@ -21,7 +21,11 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
     	System.setProperty("java.awt.headless", "false");
-        SpringApplication.run(Application.class, args);
+		
+		SwingControlDemo  swingControlDemo = new SwingControlDemo();   
+		swingControlDemo.args = args;
+		
+		swingControlDemo.showTextFieldDemo();
     }
     @Bean
     public MultipartConfigElement multipartConfigElement() {
