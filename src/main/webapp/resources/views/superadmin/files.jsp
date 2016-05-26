@@ -38,7 +38,6 @@
             <li><a ng-click="toggleModal('Are you sure you want to delete?','delete')">Delete</a></li>
             <li><a ng-click="toggleModal('Enter new name','rename')">Rename</a></li>
             <li><a ng-click="toggleModal('Select File to Upload','upload')">Upload</a></li>
-            <li><a ng-click="downloadFile()">Download</a></li>
         </ul>
     </div>
 </div>
@@ -48,6 +47,8 @@
    on-selection="showSelected(node, selected, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)"
    selected-node="selectedFolder">
    {{node.name}}  
+          <span ng-click="downloadFile(node.id)" class="glyphicon glyphicon-download"></span>
+        
 </treecontrol>
     </td>
         </tr>
