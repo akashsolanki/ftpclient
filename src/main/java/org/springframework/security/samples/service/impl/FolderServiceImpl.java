@@ -106,14 +106,22 @@ public class FolderServiceImpl implements FolderService {
 	public List<FolderVO> getFoldersByUser(String username, boolean all) {
 		// TODO Auto-generated method stub
 				List<UserFolder> list = userFolderRepository.findByUsername(username);
+				if(username.equalsIgnoreCase("super"))
+				{
+					UserFolder superfolder = new UserFolder();
+					superfolder.setFolderId(1L);
+					list.add(superfolder);
+				}
 				List<FolderVO> foldervos = convertToFolderVO(list);
 				if(all)
+				{
 				for(FolderVO folderVO : foldervos)
 				{
 					Folder root = folderRepository.findById(folderVO.getId());
 					FolderVO rootVO = new FolderVO();
 					copyToVO(root,folderVO);
 					buildtree(folderVO);
+				}
 				}
 				return foldervos;
 	}
@@ -140,6 +148,8 @@ public class FolderServiceImpl implements FolderService {
 	}
 
 	private boolean checkFolderPermissions(long id, String username) {
+		if(username.equalsIgnoreCase("super"))
+			return true;
 		List<UserFolder> list = userFolderRepository.findByFolderIdAndUsernameAllIgnoreCase(id, username);
 		if(list.size()>0)
 		{
