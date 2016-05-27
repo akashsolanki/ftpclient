@@ -28,20 +28,6 @@ public class DataConfiguration {
 		dataSource.setUrl("jdbc:hsqldb:file:local_database");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("");
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		try
-		{
-		populator.addScript(new ClassPathResource("initscript.sql"));
-		populator.populate(dataSource.getConnection());
-		populator.setContinueOnError(true);
-		populator.setIgnoreFailedDrops(true);
-		DatabasePopulatorUtils.execute(populator, dataSource);
-		}
-		catch(Exception e)
-		{
-			System.out.println("******************************************************************");
-		}
-		
 		return dataSource;
 		
 	}
@@ -64,7 +50,7 @@ public class DataConfiguration {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		try
 		{
-		populator.addScript(new ClassPathResource("data.sql"));
+		populator.addScript(new ClassPathResource("initscript.sql"));
 		populator.populate(dataSource.getConnection());
 		populator.setContinueOnError(true);
 		populator.setIgnoreFailedDrops(true);
