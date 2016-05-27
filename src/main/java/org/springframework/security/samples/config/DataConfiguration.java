@@ -8,6 +8,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -27,6 +28,20 @@ public class DataConfiguration {
 		dataSource.setUrl("jdbc:hsqldb:file:local_database");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("");
+		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+		try
+		{
+		populator.addScript(new ClassPathResource("initscript.sql"));
+		populator.populate(dataSource.getConnection());
+		populator.setContinueOnError(true);
+		populator.setIgnoreFailedDrops(true);
+		DatabasePopulatorUtils.execute(populator, dataSource);
+		}
+		catch(Exception e)
+		{
+			System.out.println("******************************************************************");
+		}
+		
 		return dataSource;
 		
 	}
@@ -40,7 +55,6 @@ public class DataConfiguration {
 		factory.setJpaVendorAdapter(vendorAdapter);
 		factory.setPackagesToScan(User.class.getPackage().getName());
 		factory.setDataSource(dataSource());
-
 		return factory;
 	}
 
@@ -50,9 +64,10 @@ public class DataConfiguration {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		try
 		{
-		//populator.addScript(new ClassPathResource("data.sql"));
+		populator.addScript(new ClassPathResource("data.sql"));
 		populator.populate(dataSource.getConnection());
 		populator.setContinueOnError(true);
+		populator.setIgnoreFailedDrops(true);
 		}
 		catch(Exception e)
 		{

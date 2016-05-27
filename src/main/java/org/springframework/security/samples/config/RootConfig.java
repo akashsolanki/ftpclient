@@ -43,6 +43,6 @@ public class RootConfig {
 	@PostConstruct
 	public void getDbManager(){
 	   DatabaseManagerSwing.main(
-		new String[] { "--url", "jdbc:hsqldb:mem:testdb", "--user", "sa", "--password", ""});
+		new String[] { "--url", "jdbc:hsqldb:file:local_database", "--user", "sa", "--password", ""});
 	}
 }
