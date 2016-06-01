@@ -7,8 +7,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 
@@ -77,12 +83,35 @@ public class SwingControlDemo{
 	            File files = new File(repositoryPath);
 	            files.mkdirs();
 	            SpringApplication springApplication = new SpringApplication(new Object[]{Application.class});
-	            Map<String, Object> defaultProperties = new HashMap<String, Object>();
-			    defaultProperties.put("property.root.path", repositoryPath);
-			    springApplication.setDefaultProperties(defaultProperties);
-			    
-		      springApplication.run(args);
+	            set(repositoryPath);
+		        springApplication.run(args);
 	         }
+
+			private void set(String repositoryPath) {
+				// TODO Auto-generated method stub
+				 FileOutputStream fileOut = null;
+			     FileInputStream fileIn = null;
+			        try {
+			            Properties configProperty = new Properties();
+
+			            File file = new File("application.properties");
+			            fileIn = new FileInputStream(file);
+			            configProperty.load(fileIn);
+			            configProperty.setProperty("property.root.path",repositoryPath);
+			            fileOut = new FileOutputStream(file);
+			            configProperty.store(fileOut, null);
+
+			        } catch (Exception ex) {
+			            Logger.getLogger(SwingControlDemo.class.getName()).log(Level.ERROR, null, ex);
+			        } finally {
+
+			            try {
+			                fileOut.close();
+			            } catch (IOException ex) {
+			                Logger.getLogger(SwingControlDemo.class.getName()).log(Level.ERROR, null, ex);
+			            }
+			        }			
+			}
 	      }); 
 
 	      controlPanel.add(namelabel);

@@ -2,13 +2,14 @@ package org.springframework.security.samples.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,6 +21,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @EnableJpaRepositories("org.springframework.security.samples.data")
 public class DataConfiguration {
+	@Autowired
+	private Environment environment;
 
 	@Bean
 	public DataSource dataSource() {
@@ -50,6 +53,10 @@ public class DataConfiguration {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		try
 		{
+
+		System.out.println("----------"+this.environment.getProperty("property.root.path"));
+		System.out.println("----------"+this.environment.getProperty("root.path"));
+		System.out.println("----------"+this.environment.getProperty("path"));
 		populator.addScript(new ClassPathResource("initscript.sql"));
 		populator.populate(dataSource.getConnection());
 		populator.setContinueOnError(true);
