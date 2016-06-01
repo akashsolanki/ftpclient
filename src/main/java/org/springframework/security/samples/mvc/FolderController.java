@@ -40,6 +40,9 @@ public class FolderController {
 	@Value("${property.root.path}")
 	private String rootfolder;
 	
+	@Value("${restrict}")
+	private String restrictedFileTypes;
+	
 	@Autowired
 	private FolderService folderService;
 	
@@ -159,11 +162,23 @@ public class FolderController {
     public @ResponseBody void UploadFile(@RequestParam("file") MultipartFile[] files,@RequestParam("folderId") Long folderId,
 			   RedirectAttributes redirectAttributes) {
 		String username  = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(username !=null)
+		if(username !=null && verifyTypes(files))
 		 folderService.saveFiles(files,folderId,username,rootfolder);
     }
 	
 	
+	private boolean verifyTypes(MultipartFile[] files) {
+		for(MultipartFile file:files)
+		{
+			String name = file.getOriginalFilename();
+			if(restrictedFileTypes.toLowerCase().contains(name.substring(name.lastIndexOf("."), name.length()).toLowerCase()))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Secured({"ROLE_SUPER","ROLE_ADMIN"})
 	@RequestMapping(value="/saveUserFile",method=RequestMethod.POST)
     public  @ResponseBody ResponseVO saveUserFile(@RequestBody UserVO userVO) {
