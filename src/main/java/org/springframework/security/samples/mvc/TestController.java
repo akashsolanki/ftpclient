@@ -15,4 +15,8 @@ public class TestController {
     public String sayHelloAgain(ModelMap model) {
 		return "index";
     }
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+    public String login(ModelMap model) {
+		return "login";
+    }
 }

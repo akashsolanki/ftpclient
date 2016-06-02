@@ -88,8 +88,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {
-	    	 http.authorizeRequests().antMatchers("/css/**").permitAll().anyRequest()
-             .fullyAuthenticated().and().formLogin().and().csrf().disable();
+	    	 http.authorizeRequests().antMatchers("/resources/css/**").permitAll().anyRequest()
+             .fullyAuthenticated().and().formLogin().loginPage("/login").permitAll().and().logout().logoutSuccessUrl("/login?logout").permitAll().and().csrf().disable();;
 	    }   
 	    
 }
