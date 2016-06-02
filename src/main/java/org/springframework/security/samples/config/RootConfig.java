@@ -15,6 +15,11 @@
  */
 package org.springframework.security.samples.config;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
@@ -39,6 +44,9 @@ public class RootConfig {
 	@Value("${property.db.managerpanel}")
 	private boolean showManagerPanel;
 
+	@Value("${property.root.url}")
+	private String url;
+
 	@Bean
 	public JdbcTemplate getJdbcTemplate(){
 	  return new JdbcTemplate(dataSource);
@@ -49,9 +57,31 @@ public class RootConfig {
 	public void getDbManager(){
 		LoadingScreenDemo loadingDemo = LoadingScreenDemo.getInstance();
 		loadingDemo.closeLoader();
+		openBrowser();
 		if(showManagerPanel){
 	   DatabaseManagerSwing.main(
 		new String[] { "--url", "jdbc:hsqldb:file:local_database", "--user", "sa", "--password", ""});
 		}
 	}
+
+	private void openBrowser() {
+		// TODO Auto-generated method stub
+		    if(Desktop.isDesktopSupported()){
+	            Desktop desktop = Desktop.getDesktop();
+	            try {
+	                desktop.browse(new URI(url));
+	            } catch (IOException | URISyntaxException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	        }else{
+	            Runtime runtime = Runtime.getRuntime();
+	            try {
+	                runtime.exec("xdg-open " + url);
+	            } catch (IOException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	        }
+	    }
 }

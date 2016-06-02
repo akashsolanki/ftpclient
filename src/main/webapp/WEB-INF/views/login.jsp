@@ -7,6 +7,12 @@
      <link href="/resources/css/bootstrap.css" rel="stylesheet"/>
      <link rel="stylesheet" href="/resources/css/normalize.css">
      <link rel="stylesheet" href="/resources/css/login.css">
+     <script>
+     var nAgt = navigator.userAgent;
+     if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+    	 alert("IE doesn't support the application..");
+    	}
+     </script>
  </head>
 
   <body>
