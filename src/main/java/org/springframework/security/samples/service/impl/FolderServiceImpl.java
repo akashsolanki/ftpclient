@@ -130,14 +130,14 @@ public class FolderServiceImpl implements FolderService {
 	public void createFolder(String foldername, FolderVO folderVO, String username,  String rootfolder) {
 		if(checkFolderPermissions(folderVO.getId(),username))
 		{
-			File files = new File(rootfolder+"\\"+folderVO.getPath()+"\\"+foldername);
+			File files = new File(rootfolder+File.separator+folderVO.getPath()+File.separator+foldername);
 	        if (!files.exists()) {
 	            if (files.mkdirs()) {
 	            	Folder folder = new Folder();
 	            	folder.setIsfolder(true);
 	            	folder.setName(foldername);
 	            	folder.setParentId(folderVO.getId());
-	            	folder.setPath(folderVO.getPath()+"\\"+foldername);
+	            	folder.setPath(folderVO.getPath()+File.separator+foldername);
 	            	folderRepository.save(folder);
 	                System.out.println("Multiple directories are created!");
 	            } else {
@@ -178,8 +178,8 @@ public class FolderServiceImpl implements FolderService {
 		// TODO Auto-generated method stub
 		if(checkFolderPermissions(folderVO.getId(),username))
 		{
-			File files = new File(rootfolder+"\\"+folderVO.getPath());
-			File dest = new File(rootfolder+"\\"+folderVO.getPath().replace(folderVO.getName(), foldername));
+			File files = new File(rootfolder+File.separator+folderVO.getPath());
+			File dest = new File(rootfolder+File.separator+folderVO.getPath().replace(folderVO.getName(), foldername));
 	        if (files.exists()) {
 	            if (files.renameTo(dest)) {
 	            	Folder folder = folderRepository.findById(folderVO.getId());
@@ -204,13 +204,13 @@ public class FolderServiceImpl implements FolderService {
 			{
 				try
 				{
-					File dest = new File(rootfolder+"\\"+folder.getPath()+"\\"+file.getOriginalFilename());
+					File dest = new File(rootfolder+File.separator+folder.getPath()+File.separator+file.getOriginalFilename());
 					file.transferTo(dest);
 					Folder nfolder = new Folder();
 					nfolder.setIsfolder(false);
 					nfolder.setName(file.getOriginalFilename());
 					nfolder.setParentId(folderId);
-					nfolder.setPath(folder.getPath()+"\\"+file.getOriginalFilename());
+					nfolder.setPath(folder.getPath()+File.separator+file.getOriginalFilename());
 	            	folderRepository.save(nfolder);
 	                System.out.println("Multiple directories are created!");
 				}catch(Exception e)
@@ -226,7 +226,7 @@ public class FolderServiceImpl implements FolderService {
 		// TODO Auto-generated method stub
 		if(checkFolderPermissions(folderVO.getId(),username)&&folderVO.getId()!=1)
 		{
-			Path path = FileSystems.getDefault().getPath(rootfolder+"\\"+folderVO.getPath());
+			Path path = FileSystems.getDefault().getPath(rootfolder+File.separator+folderVO.getPath());
 	        boolean success = false;
 			try {
 				Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
@@ -269,9 +269,9 @@ public class FolderServiceImpl implements FolderService {
 			Folder folder = folderRepository.findById(folderId);
 			File file = null;
 			if(folder.isIsfolder())
-				file = ZIPUtil.zipDirectory(new File(rootfolder+"\\"+folder.getPath()), folder.getName()+".zip");
+				file = ZIPUtil.zipDirectory(new File(rootfolder+File.separator+folder.getPath()), folder.getName()+".zip");
 			else
-				file = new File(rootfolder+"\\"+folder.getPath());
+				file = new File(rootfolder+File.separator+folder.getPath());
 	        return file;
 		}
 		return null;

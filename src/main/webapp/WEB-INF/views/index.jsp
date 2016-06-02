@@ -13,6 +13,7 @@
 <link href="/resources/css/font-awesome.css" rel="stylesheet"/>
 <link href="/resources/css/font-awesome.min.css" rel="stylesheet"/>
 <link href="/resources/css/dropzone.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/resources/css/login.css">
 </head>
 <body class="" ng-app="myApp">
   <!-- Navigation -->

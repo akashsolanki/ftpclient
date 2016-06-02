@@ -93,7 +93,6 @@ public class SwingControlDemo{
 			     FileInputStream fileIn = null;
 			        try {
 			            Properties configProperty = new Properties();
-
 			            File file = new File("application.properties");
 			            fileIn = new FileInputStream(file);
 			            configProperty.load(fileIn);
