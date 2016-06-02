@@ -39,6 +39,10 @@ public class Application extends SpringBootServletInitializer implements WebAppl
     	else
     	{
     		SpringApplication springApplication = new SpringApplication(new Object[]{Application.class});
+    		LoadingScreenDemo loadingDemo = LoadingScreenDemo.getInstance();
+    		loadingDemo.setSize(640, 300);
+    		loadingDemo.setLocationRelativeTo(null);
+    		loadingDemo.setVisible(true);
             springApplication.run(args);
     	}
     }
