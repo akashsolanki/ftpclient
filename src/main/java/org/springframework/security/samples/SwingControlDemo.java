@@ -111,7 +111,12 @@ public class SwingControlDemo{
 	            loadingDemo.setLocationRelativeTo(null);
 	            loadingDemo.setVisible(true);
 	            
-		        springApplication.run(args);
+	            Runnable task = () -> {
+	            	springApplication.run(args);
+	            };
+	            Thread thread = new Thread(task);
+	            thread.start();
+		        
 	         }
 
 			private void set(String repositoryPath, boolean showManagerPanel) {

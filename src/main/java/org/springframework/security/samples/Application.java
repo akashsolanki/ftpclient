@@ -3,8 +3,6 @@ package org.springframework.security.samples;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.MultipartConfigElement;
@@ -78,5 +76,5 @@ public class Application extends SpringBootServletInitializer implements WebAppl
         factory.setMaxRequestSize("50320KB");
         return factory.createMultipartConfig();
     }
-
+	
 }

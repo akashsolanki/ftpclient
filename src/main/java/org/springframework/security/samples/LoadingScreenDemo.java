@@ -15,8 +15,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LoadingScreenDemo extends JWindow {
-	
-	static LoadingScreenDemo loadingScreenObject = new LoadingScreenDemo();
+	static LoadingScreenDemo loadingScreenObject=null;
+	static
+	{
+	 loadingScreenObject = new LoadingScreenDemo();
+	}
 	
 	public static LoadingScreenDemo getInstance(){
 		return loadingScreenObject;
@@ -24,7 +27,6 @@ public class LoadingScreenDemo extends JWindow {
 	
 	//
   Panel panel = new Panel();
-  
   
   public void closeLoader(){
 	  dispose();
