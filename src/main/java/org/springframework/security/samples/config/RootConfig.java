@@ -20,10 +20,12 @@ import javax.sql.DataSource;
 
 import org.hsqldb.util.DatabaseManagerSwing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.samples.LoadingScreenDemo;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
@@ -34,6 +36,9 @@ public class RootConfig {
 	@Autowired
 	DataSource dataSource;
 
+	@Value("${property.db.managerpanel}")
+	private boolean showManagerPanel;
+
 	@Bean
 	public JdbcTemplate getJdbcTemplate(){
 	  return new JdbcTemplate(dataSource);
@@ -42,7 +47,11 @@ public class RootConfig {
 	//default username : sa, password : ''
 	@PostConstruct
 	public void getDbManager(){
+		LoadingScreenDemo loadingDemo = LoadingScreenDemo.getInstance();
+		loadingDemo.closeLoader();
+		if(showManagerPanel){
 	   DatabaseManagerSwing.main(
 		new String[] { "--url", "jdbc:hsqldb:file:local_database", "--user", "sa", "--password", ""});
+		}
 	}
 }
