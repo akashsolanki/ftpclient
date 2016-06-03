@@ -95,23 +95,6 @@
 					});
 				};
 				
-				$('#rolesList').change(function(){  
-				    var value = $(this).val();
-				    if($(this).val() == "1"){ 
-				    	$('#rolesList option').prop('selected', true);
-				    }
-				    else if($(this).val() == "2"){
-				    	$('#rolesList option:last').prop('selected', true);
-				    }
-				   
-				    if($('#rolesList option:first').is(':selected')){
-				    	$('#rolesList option').prop('selected', true); 
-				    }
-				    if($('#rolesList option:second').is(':selected')){
-				    	$('#rolesList option:last').prop('selected',true);
-				    }
-				});
-				
 				$scope.hide = function(){ $("#alertDiv").hide();
 				};
 				var init = function() {
@@ -144,5 +127,37 @@
 		        $scope.showModal = !$scope.showModal;
 		    };
 		angular.element(document).ready(init);
+		
+		$('#rolesList').change(function(){  
+		    if($(this).val() == "1"){ 
+		    	$('#rolesList option').prop('selected', true);
+		    }
+		    else if($(this).val() == "2"){
+		    	$('#rolesList option:last').prop('selected', true);
+		    }
+		   
+		    if($('#rolesList option:first').is(':selected')){
+		    	$('#rolesList option').prop('selected', true); 
+		    }
+		    if($('#rolesList option:second').is(':selected')){
+		    	$('#rolesList option:last').prop('selected',true);
+		    }
+		});
+		
+		$('#rolesList2').change(function(){  
+		    if($(this).val() == "1"){ 
+		    	$('#rolesList2 option').prop('selected', true);
+		    }
+		    else if($(this).val() == "2"){
+		    	$('#rolesList2 option:last').prop('selected', true);
+		    }
+		   
+		    if($('#rolesList2 option:first').is(':selected')){
+		    	$('#rolesList2 option').prop('selected', true); 
+		    }
+		    if($('#rolesList2 option:second').is(':selected')){
+		    	$('#rolesList2 option:last').prop('selected',true);
+		    }
+		});
 		
 		});
