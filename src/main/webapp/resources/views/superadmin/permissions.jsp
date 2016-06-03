@@ -79,7 +79,7 @@ $("[type=checkbox]").change(function () {
          </span>
    <b>{{node.name}}</b>  
 		<span class="label label-primary custom-fa">
-		    <label for="readCheck{{node.id}}"><input id="readCheck{{node.id}}" type="checkbox" ng-model="node.read" /><span> Read</span></label>
+		    <label for="readCheck{{node.id}}"><input id="readCheck{{node.id}}" type="checkbox" ng-model="node.read" ng-click="node.write==true?node.read=true:node.read=node.read"/><span> Read</span></label>
 		  </span> &nbsp;
 		<span class="label label-primary custom-fa">
 		    <label for="writeCheck{{node.id}}"><input id="writeCheck{{node.id}}" type="checkbox" ng-model="node.write" ng-click="node.read=true"/><span> Write</span></label></span>
