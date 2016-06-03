@@ -55,7 +55,7 @@
         </thead>
         <tbody>
         <tr>
-            <td><select ng-model="user.roles" ng-options="role.roleName for role in roles track by role.roleId" multiple>
+            <td><select id="rolesList" ng-model="user.roles" ng-options="role.roleName for role in roles track by role.roleId" multiple >
   </select>
     </td>
         </tr>
